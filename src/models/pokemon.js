@@ -10,17 +10,17 @@ module.exports = (sequelize, DataTypes) => {
         name: {
             type: DataTypes.STRING,
             allowNull: false,
-            unique: { msg: `Le nom est déjà pris.` },
+            unique: { msg: "Le nom est déjà pris." },
             validate: {
-                notEmpty: { msg: `Le champs nom ne peut pas être vide.` },
-                notNull: { msg: `Le nom est une propriété requise.` },
+                notEmpty: { msg: "Le champs nom ne peut pas être vide." },
+                notNull: { msg: "Le nom est une propriété requise." },
                 len: {
                     args: [1, 25],
-                    msg: `Le nom doit être composé de 1 à 25 caractères.`
+                    msg: "Le nom doit être composé de 1 à 25 caractères."
                 },
                 is: {
                     args: /^[A-Za-zÀ-ÖØ-öø-ÿ0-9 -]+$/i,
-                    msg: `Le nom ne peut contenir que des caractères numériques, alphabétiques avec ou sans accents, des espaces ou des tirets.`
+                    msg: "Le nom ne peut contenir que des caractères numériques, alphabétiques avec ou sans accents, des espaces ou des tirets."
                 }
             }
         },
@@ -28,15 +28,15 @@ module.exports = (sequelize, DataTypes) => {
             type: DataTypes.INTEGER,
             allowNull: false,
             validate: {
-                isInt: { msg: `Utilisez uniquement des nombres entiers pour les points de vie.` },
-                notNull: { msg: `Les points de vie sont une propriété requise.` },
+                isInt: { msg: "Utilisez uniquement des nombres entiers pour les points de vie." },
+                notNull: { msg: "Les points de vie sont une propriété requise." },
                 min: {
                     args: [0],
-                    msg: 'Les points de vie doivent être supérieur ou égal à 0.'
+                    msg: "Les points de vie doivent être supérieur ou égal à 0."
                 },
                 max: {
                     args: [999],
-                    msg: 'Les points de vie doivent être inférieur ou égal à 999.'
+                    msg: "Les points de vie doivent être inférieur ou égal à 999."
                 },
             }
         },
@@ -44,15 +44,15 @@ module.exports = (sequelize, DataTypes) => {
             type: DataTypes.INTEGER,
             allowNull: false,
             validate: {
-                isInt: { msg: `Utilisez uniquement des nombres entiers pour les points de dégats.` },
-                notNull: { msg: `Les points de dégats sont une propriété requise.` },
+                isInt: { msg:"Utilisez uniquement des nombres entiers pour les points de dégats" },
+                notNull: { msg:"Les points de dégats sont une propriété requise" },
                 min: {
                     args: [0],
-                    msg: 'Les points de dégâts doivent être supérieur ou égal à 0.'
+                    msg:"Les points de dégâts doivent être supérieur ou égal à 0"
                 },
                 max: {
                     args: [99],
-                    msg: 'Les points de dégâts doivent être inférieur ou égal à 99.'
+                    msg:"Les points de dégâts doivent être inférieur ou égal à 99"
                 },
             }
         },
@@ -60,8 +60,8 @@ module.exports = (sequelize, DataTypes) => {
             type: DataTypes.STRING,
             allowNull: false,
             validate: {
-                isUrl: { msg: `Utilisez uniquement une URL valide pour l'image.` },
-                notNull: { msg: `L'image est une propriété requise.` }
+                isUrl: { msg:"Utilisez uniquement une URL valide pour l'image" },
+                notNull: { msg:"L'image est une propriété requise" }
             }
         },
         types_string: {
@@ -84,16 +84,16 @@ module.exports = (sequelize, DataTypes) => {
                 this.setDataValue('types', types);
             },
             validate: {
-                notNull: { msg: `Les types sont une propriété requise.` },
+                notNull: { msg:"Les types sont une propriété requise" },
                 isTypesValid(value) {
                     if(!value) {
-                        throw new Error(`Un pokémon doit au moins avoir un type.`);
+                        throw new Error("Un pokémon doit au moins avoir un type");
                     }
                     if(!Array.isArray(value)) {
-                        throw new Error(`Le ou les types d'un pokémon doivent être dans un tableau de chaines de caractères.`);
+                        throw new Error("Le ou les types d'un pokémon doivent être dans un tableau de chaines de caractères");
                     }
                     if(value.length > 3) {
-                        throw new Error(`Un pokémon ne peut pas avoir plus de trois types.`);
+                        throw new Error("Un pokémon ne peut pas avoir plus de trois types");
                     }
                     value.forEach(type => {
                         if(!validTypes.includes(type)) {

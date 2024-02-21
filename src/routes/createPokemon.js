@@ -1,9 +1,10 @@
 const { ValidationError, UniqueConstraintError } = require('sequelize');
 const { Pokemon } = require('../db/sequelize');
+const auth = require('../auth/auth');
 const authorizedFfields = ['name', 'hp', 'cp', 'types', 'picture'];
 
 module.exports = (app) => {
-    app.post('/api/pokemons', (req, res) => {
+    app.post('/api/pokemons', auth, (req, res) => {
         for(const field in req.body) {
             if(!authorizedFfields.includes(field)) {
                 const message = `La propriété '${field}' n'est pas modifiable. Seules les propriétés suivantes le sont : ${authorizedFfields}`;
@@ -24,7 +25,7 @@ module.exports = (app) => {
                 if( error instanceof UniqueConstraintError) {
                     return res.status(400).json({message: error.message, data: error});
                 }
-                const message = `Le pokémon n'a pas pu être ajouté. Réessayez dans quelques instants.`;
+                const message = "Le pokémon n'a pas pu être ajouté. Réessayez dans quelques instants.";
                 res.status(500).json({message: message, data: error});
             });
     });
